@@ -1,0 +1,17 @@
+pluginManagement {
+	repositories {
+		maven { name = 'Fabric'; url = 'https://maven.fabricmc.net/' }
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
+
+rootProject.name = 'chestradar'
+
+includeBuild('versions/26.2') {
+	name = 'chestradar-26.2'
+}
+
+includeBuild('versions/26.3') {
+	name = 'chestradar-26.3'
+}

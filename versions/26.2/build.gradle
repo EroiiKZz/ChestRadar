@@ -1,0 +1,97 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+def sharedRoot = file("../..")
+
+repositories {
+	mavenCentral()
+	maven { name = 'Terraformers'; url = 'https://maven.terraformersmc.com/releases' }
+	maven {
+		name = 'Modrinth'
+		url = 'https://api.modrinth.com/maven'
+		content { includeGroup 'maven.modrinth' }
+	}
+}
+
+loom {
+	splitEnvironmentSourceSets()
+}
+
+sourceSets {
+	main {
+		java.srcDirs = [file("${sharedRoot}/src/main/java")]
+		resources.srcDirs = [file("src/main/resources"), file("${sharedRoot}/src/main/resources")]
+	}
+	test {
+		java.srcDirs = [file("${sharedRoot}/src/test/java")]
+	}
+}
+
+loom {
+	accessWidenerPath = file(findProperty('portedAccessWidener') ?: "src/main/resources/chestradar.accesswidener")
+
+	mods {
+		"chestradar" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	compileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+	compileOnly "maven.modrinth:jade:${project.jade_version}"
+	compileOnly files(fileTree(dir: "${sharedRoot}/../Arpenteur/build/libs", include: 'arpenteur-*.jar').files.sort { it.lastModified() }.last())
+
+	testImplementation platform("org.junit:junit-bom:${project.junit_version}")
+	testImplementation "org.junit.jupiter:junit-jupiter"
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+test {
+	useJUnitPlatform()
+	testLogging { events "passed", "skipped", "failed" }
+}
+
+processResources {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+	def version = project.version
+	def minecraftDependency = project.minecraft_dependency
+	def javaDependency = project.java_dependency
+	inputs.property "version", version
+	inputs.property "minecraft_dependency", minecraftDependency
+	inputs.property "java_dependency", javaDependency
+	filesMatching("fabric.mod.json") {
+		expand "version": version,
+			"minecraft_dependency": minecraftDependency,
+			"java_dependency": javaDependency
+	}
+}
+
+base {
+	archivesName = 'chestradar'
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(25)
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+	it.options.encoding = 'UTF-8'
+}
+
+ext.aeternumRoot = "$projectDir/../../../aeternum"
+ext.aeternumPackage = 'chestradar'
+ext.aeternumMainClass = 'ChestRadar'
+ext.aeternumClientVariant = '26.2'
+apply from: "$projectDir/../../../aeternum/aeternum.gradle"

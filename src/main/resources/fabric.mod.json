@@ -1,0 +1,39 @@
+{
+	"schemaVersion": 1,
+	"id": "chestradar",
+	"version": "${version}",
+	"name": "Chest Radar",
+	"description": "Indexe le contenu des conteneurs que vous ouvrez et permet de retrouver n'importe quel item, y compris les items custom serveur.",
+	"authors": ["EroiiKZz"],
+	"license": "MIT",
+	"icon": "assets/chestradar/icon.png",
+	"accessWidener": "chestradar.accesswidener",
+	"environment": "client",
+	"entrypoints": {
+		"client": ["fr.imero.chestradar.client.ChestRadarClient"],
+		"modmenu": ["fr.imero.chestradar.client.ModMenuIntegration"],
+		"jade": ["fr.imero.chestradar.client.integration.JadeIntegration"],
+		"arpenteur": ["fr.imero.chestradar.client.integration.ArpenteurIntegration"]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "${minecraft_dependency}",
+		"java": "${java_dependency}",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"modmenu": "*",
+		"jade": "*",
+		"arpenteur": "*"
+	},
+	"custom": {
+		"modmenu": {
+			"parent": {
+				"id": "aeternum",
+				"name": "Aeternum",
+				"description": "Les mods client d'EroiiKZz pour le profil Aeternum : HUD, interfaces et confort de jeu. Déplie ce groupe pour configurer chaque mod.",
+				"icon": "assets/aeternum/icon.png"
+			}
+		}
+	}
+}

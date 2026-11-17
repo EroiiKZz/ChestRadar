@@ -1,0 +1,17 @@
+accessWidener v2 named
+
+accessible method net/minecraft/client/render/RenderLayer of (Ljava/lang/String;ILcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/client/render/RenderLayer$MultiPhaseParameters;)Lnet/minecraft/client/render/RenderLayer$MultiPhase;
+
+accessible method net/minecraft/client/render/RenderLayer$MultiPhaseParameters$Builder build (Z)Lnet/minecraft/client/render/RenderLayer$MultiPhaseParameters;
+
+accessible field net/minecraft/client/gui/screen/ingame/HandledScreen focusedSlot Lnet/minecraft/screen/slot/Slot;
+
+accessible field net/minecraft/client/gui/screen/ingame/HandledScreen x I
+accessible field net/minecraft/client/gui/screen/ingame/HandledScreen y I
+accessible field net/minecraft/client/gui/screen/ingame/HandledScreen backgroundWidth I
+accessible field net/minecraft/client/gui/screen/ingame/HandledScreen backgroundHeight I
+
+accessible field net/minecraft/client/gui/screen/ingame/RecipeBookScreen recipeBook Lnet/minecraft/client/gui/screen/recipebook/RecipeBookWidget;
+
+accessible field net/minecraft/client/gui/screen/recipebook/RecipeBookWidget selectedRecipe Lnet/minecraft/recipe/NetworkRecipeId;
+accessible field net/minecraft/client/gui/screen/recipebook/RecipeBookWidget selectedRecipeResults Lnet/minecraft/client/gui/screen/recipebook/RecipeResultCollection;
